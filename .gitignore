@@ -1,0 +1,9 @@
+node_modules/
+dist/
+release/
+api/publish/
+portal/dist/
+.env
+database/*.db
+*.log
+.DS_Store
