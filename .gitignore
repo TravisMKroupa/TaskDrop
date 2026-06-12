@@ -5,5 +5,7 @@ api/publish/
 portal/dist/
 .env
 database/*.db
+database/*.db-shm
+database/*.db-wal
 *.log
 .DS_Store
