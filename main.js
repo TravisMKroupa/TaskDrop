@@ -221,8 +221,8 @@ function registerIpc() {
   ipcMain.handle('env:getPublic', () => ({
     twilioConfigured: !!(process.env.TWILIO_ACCOUNT_SID && !process.env.TWILIO_ACCOUNT_SID.startsWith('your_')),
     sendgridConfigured: !!(process.env.SENDGRID_API_KEY && !process.env.SENDGRID_API_KEY.startsWith('your_')),
-    apiUrl: process.env.TASKDROP_API_URL || 'http://localhost:5000/api',
-    portalUrl: process.env.TASKDROP_PORTAL_URL || 'http://localhost:5174',
+    apiUrl: process.env.TASKDROP_API_URL || (app.isPackaged ? 'https://taskdrop.live/api' : 'http://localhost:5000/api'),
+    portalUrl: process.env.TASKDROP_PORTAL_URL || (app.isPackaged ? 'https://taskdrop.live' : 'http://localhost:5174'),
   }));
 }
 

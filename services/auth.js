@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const { shell, safeStorage } = require('electron');
+const { app, shell, safeStorage } = require('electron');
 const Store = require('electron-store');
 const apiClient = require('./apiClient');
 
@@ -84,7 +84,8 @@ async function startLogin() {
   const challenge = generateChallenge(verifier);
   store.set('pkce_verifier', verifier);
 
-  const portalUrl = process.env.TASKDROP_PORTAL_URL || 'http://localhost:5174';
+  const portalUrl = process.env.TASKDROP_PORTAL_URL
+    || (app.isPackaged ? 'https://taskdrop.live' : 'http://localhost:5174');
   const authUrl = `${portalUrl}/desktop-auth?challenge=${encodeURIComponent(challenge)}`;
   await shell.openExternal(`${portalUrl}/login?redirect=${encodeURIComponent('/desktop-auth?challenge=' + encodeURIComponent(challenge))}`);
   return { authUrl, challenge };

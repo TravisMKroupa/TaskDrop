@@ -1,4 +1,7 @@
-const API_BASE = process.env.TASKDROP_API_URL || 'http://localhost:5000/api';
+const { app } = require('electron');
+
+const API_BASE = process.env.TASKDROP_API_URL
+  || (app.isPackaged ? 'https://taskdrop.live/api' : 'http://localhost:5000/api');
 
 let accessToken = null;
 

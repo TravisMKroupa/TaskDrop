@@ -100,8 +100,8 @@ public class AuthController : ControllerBase
 
         if (user == null) return Unauthorized(new { error = "Invalid credentials" });
 
-        var result = await _signInManager.CheckPasswordSignAsync(user, request.Password);
-        if (!result) return Unauthorized(new { error = "Invalid credentials" });
+        var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, lockoutOnFailure: false);
+        if (!result.Succeeded) return Unauthorized(new { error = "Invalid credentials" });
 
         var tokens = await _tokenService.IssueTokensAsync(user);
         return Ok(tokens);
